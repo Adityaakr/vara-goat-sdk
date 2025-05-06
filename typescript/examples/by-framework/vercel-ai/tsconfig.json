@@ -1,8 +1,19 @@
 {
     "extends": "../../../tsconfig.base.json",
     "compilerOptions": {
-        "outDir": "dist"
+        "outDir": "dist",
+        "allowJs": true,
+        "skipLibCheck": true,
+        "noEmit": true,
+        "incremental": true,
+        "module": "esnext",
+        "jsx": "preserve",
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ]
     },
-    "include": ["index.ts"],
+    "include": ["index.ts", ".next/types/**/*.ts"],
     "exclude": ["node_modules", "dist"]
 }

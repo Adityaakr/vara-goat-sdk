@@ -13,7 +13,8 @@ export type Chain =
     | CosmosChain
     | StarknetChain
     | RadixChain
-    | ZetrixChain;
+    | ZetrixChain
+    | VaraNetworkChain;
 
 export type SuiChain = {
     type: "sui";
@@ -61,4 +62,13 @@ export type RadixChain = {
 
 export type ZetrixChain = {
     type: "zetrix";
+};
+
+export type VaraNetworkChain = {
+    type: "substrate";
+    id: "vara";
+    name: "Vara Network";
+    currency: { symbol: "VARA"; decimals: 18 };
+    rpcUrl: string;
+    explorer?: string;
 };

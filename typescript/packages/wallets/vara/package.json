@@ -1,0 +1,36 @@
+{
+    "name": "@goat-sdk/wallet-vara",
+    "version": "1.0.0",
+    "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "test": "jest",
+        "demo": "tsx tests/demo.ts"
+    },
+    "dependencies": {
+        "@gear-js/api": "^0.41.1",
+        "@goat-sdk/core": "workspace:*",
+        "@polkadot/keyring": "^13.4.4",
+        "@polkadot/types": "^10.13.1",
+        "@polkadot/util-crypto": "^13.4.4",
+        "dotenv": "16.5.0",
+        "send-vara-plugin": "1.0.1",
+        "zod": "3.0.0"
+    },
+    "peerDependencies": {
+        "@goat-sdk/core": "*"
+    },
+    "devDependencies": {
+        "@types/jest": "^29.5.12",
+        "jest": "^29.7.0",
+        "ts-jest": "^29.1.2",
+        "tsup": "^8.0.2",
+        "tsx": "^4.7.1",
+        "typescript": "^5.3.3"
+    }
+}
