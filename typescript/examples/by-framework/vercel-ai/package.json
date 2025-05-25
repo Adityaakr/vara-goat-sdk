@@ -4,6 +4,7 @@
     "description": "",
     "private": true,
     "scripts": {
+        "dev": "index.ts",
         "start": "tsx vara-example.ts"
     },
     "author": "",

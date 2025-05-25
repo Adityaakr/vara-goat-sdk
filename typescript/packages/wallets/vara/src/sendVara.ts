@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { sendVara, vara } from "./index.js";
 import { VaraNetworkChain } from "../../../core/src/types/Chain.js";
+import { sendVara, vara } from "./index.js";
 
 // Schema for natural language commands
 const sendCommandSchema = z.object({
@@ -68,4 +68,3 @@ export async function sendVaraTokens(command: string, mnemonic: string) {
         };
     }
 }
-

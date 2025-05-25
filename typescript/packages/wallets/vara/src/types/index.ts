@@ -1,5 +1,3 @@
-import { Chain } from "@goat-sdk/core";
-
 export type VaraChainType = {
     type: "substrate";
     id: "vara";

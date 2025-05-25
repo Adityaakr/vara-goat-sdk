@@ -16,6 +16,18 @@ import { viem } from "@goat-sdk/wallet-viem";
 
 require("dotenv").config();
 
+const WVARA = {
+    decimals: 18,
+    symbol: "wVARA",
+    name: "Wrapped Vara",
+    chains: {
+        17000: {  // Use number, not string, for the chain ID
+            contractAddress: "0x15F103a98Aed9bF8EB3E0c7FAF4a043b5bD95279" as `0x${string}`,
+        },
+    },
+};
+
+
 // 1. Create a wallet client
 const account = privateKeyToAccount(process.env.WALLET_PRIVATE_KEY as `0x${string}`);
 
@@ -31,7 +43,7 @@ const walletClient = createWalletClient({
         wallet: viem(walletClient),
         plugins: [
             sendETH(), // Enable ETH transfers
-            erc20({ tokens: [USDC, PEPE] }), // Enable ERC20 token operations
+            erc20({ tokens: [USDC, PEPE, WVARA] }), // Enable ERC20 token operations
         ],
     });
 

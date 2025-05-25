@@ -1,4 +1,4 @@
-import { Chain, PluginBase, type ToolBase, WalletClientBase, createTool } from "@goat-sdk/core";
+import { Chain, PluginBase, type ToolBase, WalletClientBase } from "@goat-sdk/core";
 import { z } from "zod";
 import { VaraKeyringWalletClient } from "./VaraWalletClient";
 
@@ -36,10 +36,7 @@ export class SendVaraPlugin extends PluginBase<WalletClientBase> {
                     try {
                         const amount = toSmallestUnit(parameters.amount);
                         // Create the transaction directly using the Gear API
-                        const tx = varaWallet.api.tx.balances.transferKeepAlive(
-                            parameters.to,
-                            amount
-                        );
+                        const tx = varaWallet.api.tx.balances.transferKeepAlive(parameters.to, amount);
                         // Sign and send the transaction
                         const hash = await varaWallet.signAndSend(tx);
                         return { hash };
@@ -47,7 +44,7 @@ export class SendVaraPlugin extends PluginBase<WalletClientBase> {
                         console.error("Error in sendVara:", error);
                         throw error;
                     }
-                }
+                },
             } as unknown as ToolBase,
         ];
     }

@@ -1,8 +1,7 @@
 import { GearApi } from "@gear-js/api";
-import { Balance, WalletClientBase, Signature } from "@goat-sdk/core";
+import { Balance, Signature, WalletClientBase } from "@goat-sdk/core";
 import { Keyring } from "@polkadot/keyring";
 import type { KeyringPair } from "@polkadot/keyring/types";
-import type { ISubmittableResult } from "@polkadot/types/types";
 import { cryptoWaitReady } from "@polkadot/util-crypto";
 import { VaraChainType } from "./types";
 
@@ -36,23 +35,48 @@ export class VaraKeyringWalletClient implements VaraWalletClient {
     async signAndSend(transaction: unknown) {
         return new Promise<string>((res, rej) => {
             // Check if transaction has signAndSend method
-            if (typeof transaction === 'object' && transaction !== null && 'signAndSend' in transaction) {
+            if (typeof transaction === "object" && transaction !== null && "signAndSend" in transaction) {
                 // Use type assertion to bypass the type checking
-                (transaction as any).signAndSend(this.kp, ((result: any) => {
-                    if (result.status.isFinalized) res(result.txHash.toHex());
-                    if (result.isError) rej(result);
-                }) as any);
+                (
+                    transaction as {
+                        signAndSend: (
+                            keypair: { address: string },
+                            callback: (result: {
+                                status: { isFinalized: boolean };
+                                txHash: { toHex: () => string };
+                                isError?: boolean;
+                            }) => void,
+                        ) => void;
+                    }
+                ).signAndSend(
+                    this.kp,
+                    (result: {
+                        status: { isFinalized: boolean };
+                        txHash: { toHex: () => string };
+                        isError?: boolean;
+                    }) => {
+                        if (result.status.isFinalized) res(result.txHash.toHex());
+                        if (result.isError) rej(result);
+                    },
+                );
             } else {
                 // If not a proper transaction, create one
                 const tx = this.api.tx.balances.transferKeepAlive(
-                    (transaction as any).to,
-                    (transaction as any).amount
+                    (transaction as { to: string }).to,
+                    (transaction as { amount: number }).amount,
                 );
                 // Use type assertion to bypass the type checking
-                tx.signAndSend(this.kp, ((result: any) => {
-                    if (result.status.isFinalized) res(result.txHash.toHex());
-                    if (result.isError) rej(result);
-                }) as any);
+                tx.signAndSend(
+                    this.kp,
+                    (result: {
+                        status: { isFinalized: boolean };
+                        txHash: { toHex: () => string };
+                        isError?: boolean;
+                    }) => {
+                        if (result.status.isFinalized) res(result.txHash.toHex());
+                        if (result.isError) rej(result);
+                    },
+                );
             }
         });
     }
@@ -68,7 +92,7 @@ export class VaraKeyringWalletClient implements VaraWalletClient {
     async signMessage(message: string): Promise<Signature> {
         const signature = this.kp.sign(new TextEncoder().encode(message));
         return {
-            signature: Buffer.from(signature).toString('hex')
+            signature: Buffer.from(signature).toString("hex"),
         };
     }
 
@@ -79,7 +103,7 @@ export class VaraKeyringWalletClient implements VaraWalletClient {
             decimals: 12,
             symbol: "VARA",
             name: "Vara",
-            inBaseUnits: "true"
+            inBaseUnits: "true",
         };
     }
 
