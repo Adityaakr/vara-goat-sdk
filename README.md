@@ -1,42 +1,79 @@
-# Goat Vara Examples
+# Vara Goat SDK
 
-This repository contains the Vara wallet implementation and Vercel AI example for the Goat SDK.
+A TypeScript SDK for interacting with the Vara Network, built on top of the Goat SDK framework.
 
-## Packages
+## Project Structure
 
-### @goat-sdk/wallet-vara
-A wallet implementation for the Vara blockchain, providing integration with the Goat SDK.
+```
+typescript/
+├── packages/
+│   └── wallets/
+│       └── vara/                  # Vara Network Wallet Implementation
+│           ├── src/
+│           │   ├── types/         # TypeScript type definitions
+│           │   ├── VaraWalletClient.ts    # Main wallet client implementation
+│           │   ├── send.plugin.ts # Send transaction plugin
+│           │   ├── sendVara.ts    # Vara-specific send implementation
+│           │   └── index.ts       # Package entry point
+│           ├── package.json       # Package configuration
+│           └── tsconfig.json      # TypeScript configuration
+└── examples/
+    └── by-framework/
+        └── vercel-ai/            # Example implementation using Vercel AI
+```
 
-### vercel-ai-example
-An example implementation showing how to use the Goat SDK with Vercel AI.
+## Setup Instructions
 
-## Getting Started
+1. Clone the repository:
+```bash
+git clone https://github.com/Adityaakr/vara-goat-sdk.git
+cd vara-goat-sdk
+```
 
-1. Install dependencies:
+2. Install dependencies:
 ```bash
 pnpm install
 ```
 
-2. Build all packages:
-```bash
-pnpm build
+3. Configure environment variables:
+   - Copy `.env.template` to `.env`
+   - Add your credentials:
+```env
+VARA_MNEMONIC=your_mnemonic_here
+OPENAI_API_KEY=your_openai_api_key_here
 ```
 
-3. Run the example:
+## Running the Example
+
+1. Navigate to the example directory:
 ```bash
-cd examples/vercel-ai
+cd typescript/examples/by-framework/vercel-ai
+```
+
+2. Start the application:
+```bash
 pnpm start
 ```
 
-## Development
+## Features
 
-This repository uses:
-- pnpm as the package manager
-- Turborepo for monorepo management
-- TypeScript for type safety
+- Vara Network wallet integration
+- Transaction sending capabilities
+- TypeScript support
+- Integration with Goat SDK framework
+- Example implementation with Vercel AI
+
+## Dependencies
+
+- Node.js
+- pnpm
+- TypeScript
+- Goat SDK
 
 ## License
 
 MIT
-# vara-goat-sdk
-# vara-goat-sdk
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
