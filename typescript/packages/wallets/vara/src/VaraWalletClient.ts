@@ -22,7 +22,7 @@ export class VaraKeyringWalletClient implements VaraWalletClient {
         private seed: string,
         chain: VaraChainType,
     ) {
-        this.chain = chain;
+        this.chain = chain; 
     }
 
     async init() {
