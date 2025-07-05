@@ -1,6 +1,44 @@
-# VARA Wallet for GOAT SDK
+<div align="center">
+<a href="https://github.com/goat-sdk/goat">
 
-A VARA wallet implementation with AI-powered natural language transactions.
+<img src="https://github.com/user-attachments/assets/5fc7f121-259c-492c-8bca-f15fe7eb830c" alt="GOAT" width="100px" height="auto" style="object-fit: contain;">
+</a>
+</div>
+
+# Vara Wallet for GOAT
+
+## Installation
+```
+npm install @goat-sdk/wallet-vara
+yarn add @goat-sdk/wallet-vara
+pnpm add @goat-sdk/wallet-vara
+```
+
+## Usage
+```typescript
+import { getOnChainTools } from "@goat-sdk/adapter-vercel-ai";
+import { vara } from "@goat-sdk/wallet-vara";
+
+const mnemonic = process.env.VARA_MNEMONIC;
+const seed = bip39.mnemonicToSeedSync(mnemonic);
+
+const tools = await getOnChainTools({
+    wallet: vara({
+        seed,
+        chain: "mainnet", // or "testnet"
+    }),
+});
+```
+
+<footer>
+<br/>
+<br/>
+<div>
+<a href="https://github.com/goat-sdk/goat">
+  <img src="https://github.com/user-attachments/assets/59fa5ddc-9d47-4d41-a51a-64f6798f94bd" alt="GOAT" width="100%" height="auto" style="object-fit: contain; max-width: 800px;">
+</a>
+</div>
+</footer>
 
 ## Quick Start
 
@@ -8,44 +46,3 @@ A VARA wallet implementation with AI-powered natural language transactions.
 ```bash
 pnpm add @goat-sdk/wallets-vara
 ```
-
-2. Basic Usage:
-```typescript
-import { vara } from '@goat-sdk/wallets-vara';
-
-const wallet = await vara("your mnemonic here");
-await wallet.connect();
-
-// Send VARA
-const result = await wallet.sendVara({
-  to: "recipient-address",
-  amount: 1
-});
-```
-
-3. AI-Powered Usage:
-```typescript
-import { vara } from '@goat-sdk/wallets-vara';
-import { getOnChainTools } from '@goat-sdk/adapters-vercel-ai';
-
-const wallet = await vara("your mnemonic here");
-await wallet.connect();
-
-// Use natural language
-const tools = await getOnChainTools({
-  wallet: wallet,
-  plugins: [sendVara()]
-});
-
-// Example: "send 1 vara to kGgwmYab55mPWS3q4wWNTqeis5h7kAK4tFHsm3CEUaYxE2pPK"
-```
-
-## Notes
-
-- Amounts are in VARA units (e.g., 1 for 1 VARA)
-- Requires OpenAI API key for natural language features
-- Automatically handles decimals (18 decimals for VARA)
-
-## License
-
-MIT 
