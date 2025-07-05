@@ -3,30 +3,15 @@ import readline from "node:readline";
 import { openai } from "@ai-sdk/openai";
 import { generateText } from "ai";
 
-import { http } from "viem";
-import { createWalletClient } from "viem";
+import { http, createWalletClient } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { baseSepolia } from "viem/chains";
 
 import { getOnChainTools } from "@goat-sdk/adapter-vercel-ai";
-import { PEPE, USDC, erc20 } from "@goat-sdk/plugin-erc20";
 
-import { sendETH } from "@goat-sdk/wallet-evm";
 import { viem } from "@goat-sdk/wallet-viem";
 
 require("dotenv").config();
-
-const WVARA = {
-    decimals: 18,
-    symbol: "wVARA",
-    name: "Wrapped Vara",
-    chains: {
-        17000: {  // Use number, not string, for the chain ID
-            contractAddress: "0x15F103a98Aed9bF8EB3E0c7FAF4a043b5bD95279" as `0x${string}`,
-        },
-    },
-};
-
 
 // 1. Create a wallet client
 const account = privateKeyToAccount(process.env.WALLET_PRIVATE_KEY as `0x${string}`);
@@ -41,10 +26,7 @@ const walletClient = createWalletClient({
     // 2. Get your onchain tools for your wallet
     const tools = await getOnChainTools({
         wallet: viem(walletClient),
-        plugins: [
-            sendETH(), // Enable ETH transfers
-            erc20({ tokens: [USDC, PEPE, WVARA] }), // Enable ERC20 token operations
-        ],
+        plugins: [],
     });
 
     // 3. Create a readline interface to interact with the agent
