@@ -100,7 +100,8 @@ export const WVARA = {
     symbol: "wVARA",
     name: "Wrapped Vara",
     chains: {
-        17000: {  // Use number, not string, for the chain ID
+        17000: {
+            // Use number, not string, for the chain ID
             contractAddress: "0x15F103a98Aed9bF8EB3E0c7FAF4a043b5bD95279" as `0x${string}`,
         },
     },

@@ -4,12 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@polkadot/util': 13.4.4
-  '@polkadot/util-crypto': 13.4.4
-  '@polkadot/types': 13.4.4
-  '@polkadot/keyring': 13.4.4
-
 devDependencies:
   prettier:
     specifier: ^3.0.0
