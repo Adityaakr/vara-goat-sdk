@@ -1,76 +1,161 @@
+# Vara Network + Vercel AI SDK Example
 
-<div align="center">
-<img src="https://github.com/user-attachments/assets/5fc7f121-259c-492c-8bca-f15fe7eb830c" alt="GOAT" width="100px" height="auto" style="object-fit: contain;">
-</div>
+This example demonstrates how to build an AI-powered blockchain agent for the Vara Network using the GOAT SDK and Vercel AI SDK.
 
-# Vercel AI SDK
-## 🚀 Quickstart
+## Features
 
-This example demonstrates how to use GOAT to allow a [Vercel AI SDK](https://sdk.vercel.ai/) agent to **send and receive ETH and ERC-20 tokens** on EVM networks. This example uses [Base Sepolia](https://base.org) but you can implement it with any other EVM network by changing the chain and RPC URL.
+- 🤖 **AI-Powered Agent**: Natural language interface for blockchain operations
+- 💰 **VARA Token Transfers**: Send VARA tokens using conversational commands
+- 🔍 **Balance Queries**: Check wallet balances through AI
+- 🌐 **Multi-Network Support**: Works with both Vara Mainnet and Testnet
+- 🛠️ **Extensible**: Easy to add custom plugins and tools
 
-You can use this example with any other agent framework, chain, and wallet of your choice.
+## Prerequisites
 
-## Setup
-1. Clone the repository:
-```bash
-git clone https://github.com/goat-sdk/goat.git && cd goat
-```
+- Node.js 18 or higher
+- OpenAI API key
+- Vara Network wallet mnemonic (12-word seed phrase)
 
-2. Run the following commands from the `typescript` directory:
-```bash
-cd typescript
-pnpm install
-pnpm build
-```
+## Installation
 
-3. Go to the example directory:
-```bash
-cd examples/by-framework/vercel-ai
-```
+1. **Install dependencies:**
+   ```bash
+   pnpm install
+   ```
 
-4. Copy the `.env.template` and populate with your values:
-```bash
-cp .env.template .env
-```
-- `OPENAI_API_KEY`
-- `WALLET_PRIVATE_KEY`
-- `RPC_PROVIDER_URL`
+2. **Set up environment variables:**
+   ```bash
+   cp .env.example .env
+   ```
 
-5. Add some test funds to your wallet by going to any [Base Sepolia Faucet](https://www.alchemy.com/faucets/base-sepolia)
+3. **Configure your `.env` file:**
+   ```env
+   # Required
+   OPENAI_API_KEY=your_openai_api_key_here
+   VARA_MNEMONIC=your twelve word mnemonic phrase goes here
+
+   # Optional
+   OPENAI_MODEL=gpt-4o-mini
+   VARA_NETWORK=testnet  # or mainnet
+   ```
 
 ## Usage
-1. Run the interactive CLI:
+
+### Run the Interactive Agent
+
 ```bash
-pnpm ts-node index.ts
+pnpm start
 ```
 
-2. Chat with the agent:
-- Check your balance for ERC-20 tokens
-- Send ERC-20 tokens to another address
-- Check your balance again to see the tokens you just sent
+### Example Commands
 
-## Using in production
-In production, developers require advanced wallet setups that utilize [smart wallets](https://docs.goat-sdk.com/concepts/smart-wallets), which allow them to:
-1. **Increase security** by setting programmable permissions (e.g. limiting fund amounts, restricting contract interactions, and defining required signatures)
-2. **Maintain regulatory compliance** by ensuring agent wallets are non-custodial. This means that:
-     - Launchpads, wallet providers, or agent platforms never have access to agents' wallets.
-     - Agent platforms do not require money transmitter licenses.
+Once the agent is running, try these natural language commands:
 
-### Agent Wallets
-[Crossmint](https://docs.crossmint.com/wallets/quickstarts/agent-wallets) offers one of the most advanced solutions for agent developers and launchpads: [Agent Wallets](https://docs.crossmint.com/wallets/quickstarts/agent-wallets).
+```
+👤 You: What is my wallet address?
+👤 You: Check my VARA balance
+👤 You: Send 0.1 VARA to kGkLEU3e3XXkJp2WK4eNpVmSab5xUNL9QtmLPh8QfCL2EgotW
+👤 You: What's the current network I'm connected to?
+```
 
-To integrate Agent Wallets with GOAT, check out the following quickstarts:
-1. Agent Wallets Quickstart [[EVM](https://github.com/goat-sdk/goat/tree/main/typescript/examples/by-wallet/crossmint-smart-wallets), [Solana](https://github.com/goat-sdk/goat/tree/main/typescript/examples/by-wallet/crossmint-smart-wallets)]
-2. [Agent Launchpad Starter Kit](https://github.com/Crossmint/agent-launchpad-starter-kit/)
+Type `exit` to quit the agent.
 
+## Project Structure
 
+```
+vercel-ai/
+├── index.ts           # Main application entry point
+├── package.json       # Dependencies and scripts
+├── tsconfig.json      # TypeScript configuration
+├── .env.example       # Environment variables template
+└── README.md          # This file
+```
 
+## How It Works
 
-<footer>
-<br/>
-<br/>
-<div>
-  <img src="https://github.com/user-attachments/assets/59fa5ddc-9d47-4d41-a51a-64f6798f94bd" alt="GOAT" width="100%" height="auto" style="object-fit: contain; max-width: 800px;">
+1. **Wallet Initialization**: The agent initializes a Vara Network wallet using your mnemonic
+2. **Tool Registration**: GOAT SDK registers blockchain tools (like `sendVara`) with the AI
+3. **AI Processing**: Vercel AI SDK processes your natural language requests
+4. **Tool Execution**: The AI decides which blockchain tools to call based on your request
+5. **Response**: Results are returned in natural language
 
-<div>
-</footer>
+## Available Tools
+
+- **sendVara**: Send VARA tokens to another address
+  - Parameters: `to` (recipient address), `amount` (VARA amount)
+  - Example: "Send 1.5 VARA to kGkL..."
+
+## Network Configuration
+
+### Testnet (Default)
+- RPC: `wss://testnet.vara.network`
+- Explorer: https://testnet.vara.subscan.io
+- Faucet: Get test tokens from [Vara Discord](https://discord.gg/vara-network)
+
+### Mainnet
+- RPC: `wss://rpc.vara.network`
+- Explorer: https://vara.subscan.io
+- Set `VARA_NETWORK=mainnet` in `.env`
+
+## Security Notes
+
+⚠️ **Important Security Considerations:**
+
+- Never commit your `.env` file or expose your mnemonic
+- Use testnet for development and testing
+- Start with small amounts when testing on mainnet
+- The AI has access to send transactions - review all operations carefully
+- Consider implementing transaction limits for production use
+
+## Extending the Example
+
+### Add Custom Plugins
+
+```typescript
+import { myCustomPlugin } from "./plugins/myCustomPlugin";
+
+const tools = await getOnChainTools({
+    wallet: varaWallet,
+    plugins: [
+        sendVara(),
+        myCustomPlugin(), // Add your custom plugin
+    ],
+});
+```
+
+### Use Different AI Models
+
+Change the model in `index.ts`:
+
+```typescript
+const result = await generateText({
+    model: openai("gpt-4o"),  // Use GPT-4 instead
+    // ... rest of config
+});
+```
+
+## Troubleshooting
+
+### "Cannot find module" errors
+Run `pnpm install` to install all dependencies.
+
+### Connection errors
+- Check your RPC URL in `.env`
+- Verify network connectivity
+- Try switching between mainnet/testnet
+
+### Transaction failures
+- Ensure sufficient VARA balance for transactions + fees
+- Verify recipient address format
+- Check network status on the explorer
+
+## Resources
+
+- [GOAT SDK Documentation](https://github.com/goat-sdk/goat)
+- [Vara Network Documentation](https://vara.network/docs)
+- [Vercel AI SDK Documentation](https://sdk.vercel.ai/docs)
+- [Vara Network Explorer](https://vara.subscan.io)
+
+## License
+
+MIT

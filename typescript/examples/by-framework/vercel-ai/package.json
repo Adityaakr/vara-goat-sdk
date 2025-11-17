@@ -1,24 +1,47 @@
 {
-    "name": "goat-examples-vercel-ai",
-    "version": "0.0.0",
-    "description": "",
+    "name": "@goat-sdk/example-vara-vercel-ai",
+    "version": "0.1.0",
+    "description": "Vara Network integration with Vercel AI SDK and GOAT",
     "private": true,
+    "type": "module",
     "scripts": {
-        "dev": "index.ts",
-        "start": "tsx vara-example.ts"
+        "start": "tsx index.ts",
+        "dev": "tsx watch index.ts",
+        "build": "tsc",
+        "type-check": "tsc --noEmit"
     },
+    "keywords": [
+        "vara",
+        "vara-network",
+        "blockchain",
+        "ai",
+        "vercel-ai",
+        "goat-sdk",
+        "web3",
+        "substrate"
+    ],
     "author": "",
     "license": "MIT",
     "dependencies": {
-        "@ai-sdk/openai": "1.0.4",
-        "@goat-sdk/adapter-vercel-ai": "0.2.10",
-        "@goat-sdk/core": "0.4.9",
-        "@goat-sdk/plugin-erc20": "0.2.14",
-        "@goat-sdk/wallet-evm": "0.2.11",
-        "@goat-sdk/wallet-viem": "0.2.12",
-        "ai": "4.0.3",
-        "dotenv": "16.4.5",
-        "viem": "2.23.4",
-        "zod": "3.23.8"
+        "@ai-sdk/openai": "^1.0.4",
+        "@gear-js/api": "^0.38.1",
+        "@goat-sdk/adapter-vercel-ai": "workspace:*",
+        "@goat-sdk/core": "workspace:*",
+        "@goat-sdk/wallet-vara": "workspace:*",
+        "@polkadot/keyring": "^13.2.1",
+        "@polkadot/util-crypto": "^13.2.1",
+        "ai": "^4.0.3",
+        "bip39": "^3.1.0",
+        "dotenv": "^16.4.5",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "@types/bip39": "^3.0.0",
+        "@types/node": "^22.0.0",
+        "tsx": "^4.19.0",
+        "typescript": "^5.6.0"
+    },
+    "engines": {
+        "node": ">=18.0.0"
     }
 }
